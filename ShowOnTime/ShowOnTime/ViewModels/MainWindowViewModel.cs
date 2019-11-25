@@ -81,6 +81,7 @@ namespace ShowOnTime.ViewModels
 
         public void VideoPlayEnd()
         {
+            lstVedioPath.ElementAt(1).isPlaying = Visibility.Visible;
             m_currentUri = lstVedioPath.ElementAt(1).GetUri();
             this.Refresh();
         }

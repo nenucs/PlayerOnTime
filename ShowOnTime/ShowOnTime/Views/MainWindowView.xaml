@@ -31,6 +31,8 @@
                     Width="auto" Height="auto"
                     Source="{Binding currentUri}"
                     cal:Message.Attach="[Event MouseUp]=[Action PlayerStateChange];[Event MediaEnded]=[Action VideoPlayEnd]"/>
+                <Label Content="时间"/>
+                <Label Content="{Binding ElementName=localPlayer, Path=NaturalDuration.TimeSpan.TotalSeconds}"></Label>
             </Grid>
             <Grid Grid.Column="1" x:Name="pathListGrid">
                 <Grid.RowDefinitions>
