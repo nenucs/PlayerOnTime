@@ -15,7 +15,19 @@ namespace ShowOnTime.ViewModels
     [Export(typeof(MainWindowViewModel))]
     public class MainWindowViewModel:Screen
     {
-        private Uri m_currentUri = new Uri(@"C:\Users\temp\Desktop\01.mp4");
+        private MediaState m_LoadedBehavior = MediaState.Manual;
+
+        public MediaState LoadedBehavior
+        {
+            get { return m_LoadedBehavior; }
+            set
+            {
+                m_LoadedBehavior = value;
+                this.NotifyOfPropertyChange(()=> LoadedBehavior);
+            }
+        }
+
+        private Uri m_currentUri = new Uri(@"C:\Users\YaZhou\Desktop\01.mp4");
         public Uri currentUri
         {
             get { return m_currentUri; }
@@ -32,21 +44,45 @@ namespace ShowOnTime.ViewModels
         public MainWindowViewModel()
         {
             lstVedioPath = new ObservableCollection<VideoPath>();
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
-            lstVedioPath.Add(new VideoPath(@"C:\Users\temp\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
+            lstVedioPath.Add(new VideoPath(@"C:\Users\YaZhou\Desktop\01.mp4"));
         }
 
-        public void ClickOnPlayer(object obj)
+        public void Start()
         {
-            var item = obj as FrameworkElement;
+            LoadedBehavior = MediaState.Play;
         }
 
+        public void PlayerStateChange()
+        {
+            if (LoadedBehavior == MediaState.Play || LoadedBehavior == MediaState.Manual)
+            {
+                LoadedBehavior = MediaState.Pause;
+                return;
+            }
+            if (LoadedBehavior == MediaState.Pause || LoadedBehavior == MediaState.Manual)
+            {
+                LoadedBehavior = MediaState.Play;
+                return;
+            }
+        }
+
+        public void ClickOnPlayer()
+        {
+            
+        }
+
+        public void VideoPlayEnd()
+        {
+            m_currentUri = lstVedioPath.ElementAt(1).GetUri();
+            this.Refresh();
+        }
     }
 }

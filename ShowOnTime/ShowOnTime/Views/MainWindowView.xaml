@@ -14,13 +14,23 @@
             <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Menu>
+                <MenuItem Header="开始" cal:Message.Attach="[Event Click]=[Action Start]"></MenuItem>
+            </Menu>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <MediaElement x:Name="localPlayer" Width="auto" Height="auto" Source="{Binding currentUri}" cal:Message.Attach="[Event MouseUp]=[Action ClickOnPlayer($datacontext)]"></MediaElement>
+                <MediaElement
+                    x:Name="localPlayer"
+                    LoadedBehavior="{Binding LoadedBehavior,Mode=TwoWay}"
+                    Width="auto" Height="auto"
+                    Source="{Binding currentUri}"
+                    cal:Message.Attach="[Event MouseUp]=[Action PlayerStateChange];[Event MediaEnded]=[Action VideoPlayEnd]"/>
             </Grid>
             <Grid Grid.Column="1" x:Name="pathListGrid">
                 <Grid.RowDefinitions>
