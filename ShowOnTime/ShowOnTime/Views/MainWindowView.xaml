@@ -1,0 +1,45 @@
+﻿<Window x:Class="ShowOnTime.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShowOnTime.Views"
+        xmlns:cal="http://www.caliburnproject.org"
+        mc:Ignorable="d"
+        Title="MainWindowView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <MediaElement x:Name="localPlayer" Width="auto" Height="auto" Source="{Binding currentUri}" cal:Message.Attach="[Event MouseUp]=[Action ClickOnPlayer($datacontext)]"></MediaElement>
+            </Grid>
+            <Grid Grid.Column="1" x:Name="pathListGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="播放列表"></Label>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <ListView ItemsSource="{Binding lstVedioPath}" Background="AliceBlue" Margin="0,0,0,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding strShortPathName}"></Label>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
