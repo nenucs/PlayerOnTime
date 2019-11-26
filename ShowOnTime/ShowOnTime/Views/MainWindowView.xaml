@@ -28,11 +28,12 @@
                 <MediaElement
                     x:Name="localPlayer"
                     LoadedBehavior="{Binding LoadedBehavior,Mode=TwoWay}"
+                    
                     Width="auto" Height="auto"
                     Source="{Binding currentUri}"
-                    cal:Message.Attach="[Event MouseUp]=[Action PlayerStateChange];[Event MediaEnded]=[Action VideoPlayEnd]"/>
+                    cal:Message.Attach="[Event MediaOpened]=[Action NewVideoLoad];[Event MouseUp]=[Action PlayerStateChange];[Event MediaEnded]=[Action VideoPlayEnd]"/>
                 <Label Content="时间"/>
-                <Label Content="{Binding ElementName=localPlayer, Path=NaturalDuration.TimeSpan.TotalSeconds}"></Label>
+                <Label Content="{Binding ElementName=localPlayer, Path=NaturalDuration.TimeSpan}"></Label>
             </Grid>
             <Grid Grid.Column="1" x:Name="pathListGrid">
                 <Grid.RowDefinitions>
